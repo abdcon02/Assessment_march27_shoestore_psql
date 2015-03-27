@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>All Brands</title>
+    </head>
+    <body>
+        <h1>Local Brands</h1>
+        {% if brands is not empty %}
+            <h3>Brands at stores around you are:</h3>
+            <ul>
+                {% for shoe in brands %}
+                    <li>{{ shoe.getName }}</a></li>
+                {% endfor %}
+            </ul>
+            <form  action="/delete_all_brands" method="post">
+                <button type="submit">Delete All Brands</button>
+            </form>
+        {% else %}
+            <h3>There are no brands being sold at stores new by!</h3>
+        {% endif %}
+
+        <form action="/add_brand" method="post">
+            <label for="name">Brand Name</label>
+            <input type="text" name="name">
+            <button type="submit">Create A Brand</button>
+        </form>
+        <a href="/">Go Home</a>
+    </body>
+</html>

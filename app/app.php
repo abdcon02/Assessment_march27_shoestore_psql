@@ -19,7 +19,7 @@
 
         return $app['twig']->render('index.html.twig');
     });
-
+///////////////
 // All stores routes
     $app->get('/stores', function() use($app){
 
@@ -90,79 +90,28 @@
 
         return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
     });
-// All brand routes
+////////////////
+// All brands routes
 
-
-// All stores routes
     $app->get('/brands', function() use($app){
 
         return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
     });
 
-    $app->post('/add_store', function() use($app){
-        $name = $_POST['name'];
-        $new_store = new Store($name);
-        $new_store->save();
-
-        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
-    });
-
-    $app->post('/delete_all_stores', function() use($app){
-        Store::deleteAll();
-        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
-    });
-// Single Store Routes
-    $app->get('/store/{id}', function($id) use($app){
-        $store = Store::find($id);
-        $store_brands = $store->getBrands();
-
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store_brands));
-    });
-
-    $app->post('/store_add_brand/{id}', function($id) use($app){
-        $store = Store::find($id);
+    $app->post('/add_brand', function() use($app){
         $name = $_POST['name'];
         $new_brand = new Brand($name);
         $new_brand->save();
-        $store->addBrand($new_brand);
-        $store_brands = $store->getBrands();
 
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store_brands));
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
     });
 
-    $app->post('/delete_store_brands/{id}', function($id) use($app){
-        $store = Store::find($id);
-    // Only delete brands in this store
-        foreach($store->getBrands() as $shoe){
-            $shoe->delete();
-        }
-        $store_brands = $store->getBrands();
+    $app->post('/delete_all_brands', function() use($app){
+        Brand::deleteAll();
 
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store_brands));
-    });
-// update and delete routes for store
-    $app->get('/edit_store/{id}', function($id) use($app){
-        $store = Store::find($id);
-
-        return $app['twig']->render('store_edit.html.twig', array('store' => $store));
-    });
-    $app->patch('/edit_store', function() use($app){
-        $id = $_POST['id'];
-        $store = Store::find($id);
-        $new_name = $_POST['name'];
-        $store->update($new_name);
-        $store_brands = $store->getBrands();
-
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store_brands));
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
     });
 
-    $app->delete('/delete_store', function() use($app){
-        $id = $_POST['id'];
-        $store = Store::find($id);
-        $store->delete();
-
-        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
-    });
 
 
     return $app;
