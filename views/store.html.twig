@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shoe Store</title>
+    </head>
+    <body>
+        <h1>Welcome to the store: {{ store.getName }}</h1>
+        <a href="/edit_store/{{ store.getId }}"><p>Edit this Store</p></a>
+        {% if brands is not empty %}
+            <h3>These are the brands that this store has available:</h3>
+            <ul>
+                {% for shoe in brands %}
+                    <li>{{ shoe.getName }}</li>
+                {% endfor %}
+            </ul>
+            <form action="/delete_store_brands/{{ store.getId }}" method="post">
+                <button type="submit">Delete these Brands</button>
+            </form>
+        {% else %}
+            <h3>There are no brands being sold at this store</h3>
+        {% endif %}
+        <form action="/store_add_brand/{{ store.getId }}" method="post">
+            <label for="name">Add a Brand</label>
+            <input type="text" name="name">
+            <button type="submit">Add Brand to Store</button>
+        </form>
+
+    </body>
+</html>
