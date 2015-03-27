@@ -6,16 +6,19 @@
     <body>
         <h1>Edit the store: {{ store.getName }}</h1>
 
-        <form action="/edit_store/{{ store.getId }}" method="post">
+        <form action="/edit_store" method="post">
             <label for="name">Enter the Stores new name:</label>
             <input type="text" name="name">
             <input name="_method" type="hidden" value="patch">
+            <input name="id" type="hidden" value="{{ store.getId }}">
             <button type="submit">Update Store Name</button>
         </form>
 
-        <form action="/delete_store/{{ store.getId }}" method="post">
+        <form action="/delete_store" method="post">
             <input name="_method" type="hidden" value="delete">
+            <input name="id" type="hidden" value="{{ store.getId }}">
             <button type="submit">Delete this Store and all of its Brands</button>
         </form>
+        <a href="/store/{{ store.getId }}">Go Back to the store</a>
     </body>
 </html>
