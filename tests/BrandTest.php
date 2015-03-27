@@ -189,6 +189,33 @@
             $this->assertEquals([], $result);
         }
 
+        function testDropStore()
+        {
+            //Arrange
+            $name = "Shoe go lucky";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $name2 = "Nanies";
+            $test_store2 = new Store($name2);
+            $test_store2->save();
+
+            $brand = "Five Fingers";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $test_brand->addStore($test_store2);
+            $result2 = $test_brand->getStores();
+            $test_brand->dropStore($test_store2);
+            $result = $test_brand->getStores();
+
+
+            //Assert
+            $this->assertEquals([$test_store], $result);
+        }
+
 
     }
 ?>

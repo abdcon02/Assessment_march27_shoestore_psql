@@ -18,8 +18,27 @@
                                         <li>{{ store.getName }}</li>
                                     {% endfor %}
                                 </ul>
-                            {% endif %}
-
+                                {% endif %}
+                                <form action="/brand_add_store" method="post">
+                                    <input type="hidden" name="brand_id" value=" {{ shoe.getId }}">
+                                    <label for="store_name">Add a Store</label>
+                                    <select name="store_id" type="text">
+                                        {% for place in stores %}
+                                            <option value="{{ place.getId }}">{{ place.getName }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type='submit'>Add Brand to Store Catalog</button>
+                                </form>
+                                <form action="/brand_drop_store" method="post">
+                                    <input type="hidden" name="brand_id" value=" {{ shoe.getId }}">
+                                    <label for="store_name">Drop a Store</label>
+                                    <select name="store_id" type="text">
+                                        {% for place in shoe.getStores %}
+                                            <option value="{{ place.getId }}" required>{{ place.getName }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type='submit'>Drop Brand from Store Catalog</button>
+                                </form>
                     </li>
                 {% endfor %}
             </ul>

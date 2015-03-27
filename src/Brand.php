@@ -4,13 +4,13 @@
     {
         private $name;
         private $id;
-
+// construct instances
         function __construct($name, $id = null)
         {
             $this->name = $name;
             $this->id = $id;
         }
-
+// getters and setters
         function getName()
         {
             return $this->name;
@@ -30,7 +30,7 @@
         {
             $this->id = (int) $new_id;
         }
-
+// methods interacting with database
         function save()
         {
             $statement = $GLOBALS['DB']->query("INSERT INTO brands (name) VALUES ('{$this->getName()}') RETURNING id;");
@@ -53,6 +53,11 @@
         function addStore($store)
         {
             $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
+        }
+
+        function dropStore($store)
+        {
+            $GLOBALS['DB']->exec("DELETE FROM brands_stores WHERE store_id = {$store->getId()} AND brand_id = {$this->getId()};");
         }
 
         function getStores()

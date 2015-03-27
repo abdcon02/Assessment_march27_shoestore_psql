@@ -4,13 +4,13 @@
     {
         private $name;
         private $id;
-
+// construct instances of class
         function __construct($name, $id = null)
         {
             $this->name = $name;
             $this->id = $id;
         }
-
+// getters and setters for object properties
         function getName()
         {
             return $this->name;
@@ -30,7 +30,7 @@
         {
             $this->id = (int) $new_id;
         }
-
+// methods interacting with database
         function save()
         {
             $statement = $GLOBALS['DB']->query("INSERT INTO stores (name) VALUES ('{$this->getName()}') RETURNING id;");
