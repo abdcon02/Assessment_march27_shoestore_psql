@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>All Stores</title>
+    </head>
+    <body>
+        <h1>Local Stores</h1>
+        {% if stores is not empty %}
+            <h3>Your stores are:</h3>
+            <ul>
+                {% for place in stores %}
+                    <li><a href='store/{{ place.getId}}'>{{ place.getName }}</a></li>
+                {% endfor %}
+            </ul>
+            <form  action="/delete_all_stores" method="post">
+                <button type="submit">Delete All Stores</button>
+            </form>
+        {% else %}
+            <h3>There are no stores in your area!</h3>
+        {% endif %}
+
+        <form action="/add_store" method="post">
+            <label for="name">Store Name</label>
+            <input type="text" name="name">
+            <button type="submit">Create A Store</button>
+        </form>
+    </body>
+</html>
