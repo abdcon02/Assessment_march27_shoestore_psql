@@ -9,7 +9,7 @@
             <h3>Brands at stores around you are:</h3>
             <ul>
                 {% for shoe in brands %}
-                    <li>{{ shoe.getName }}</a></li>
+                    <li>{{ shoe.getName }}<a href="/edit_brand/{{ shoe.getId }}"><button type="submit">Edit Brand</button></a></li>
                 {% endfor %}
             </ul>
             <form  action="/delete_all_brands" method="post">

@@ -114,5 +114,28 @@
 
 
 
-    return $app;
- ?>
+// update and delete routes for brand
+    $app->get('/edit_brand/{id}', function($id) use($app){
+        $brand = Brand::find($id);
+
+        return $app['twig']->render('brand_edit.html.twig', array('brand' => $brand));
+    });
+    $app->patch('/edit_brand', function() use($app){
+        $id = $_POST['id'];
+        $brand = Brand::find($id);
+        $new_name = $_POST['name'];
+        $brand->update($new_name);
+
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
+    });
+
+    $app->delete('/delete_brand', function() use($app){
+        $id = $_POST['id'];
+        $brand = Brand::find($id);
+        $brand->delete();
+
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
+    });
+
+        return $app;
+?>
