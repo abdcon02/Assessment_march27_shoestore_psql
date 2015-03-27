@@ -4,6 +4,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Store.php";
+    require_once "src/Brand.php";
 
     $DB = new PDO('pgsql:host=localhost;dbname=shoes_test');
 
@@ -12,6 +13,7 @@
         protected function tearDown()
         {
             Store::deleteAll();
+            Brand::deleteAll();
         }
 
         function test_SetName()
@@ -117,6 +119,68 @@
             $result = Store::getAll();
             //Assert
             $this->assertEquals([$test_store], $result);
+        }
+
+        function testAddBrand()
+        {
+            //Arrange
+            $name = "Toms";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $brand = "Brooks";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $result = $test_store->getBrands();
+
+            //Assert
+            $this->assertEquals([$test_brand], $result);
+        }
+
+        function testGetBooks()
+        {
+            //Arrange
+            $name = "Burnhearts place";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $brand = "Vibrams";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            $book_name2 = "Barefoot";
+            $test_book2 = new Brand($book_name2);
+            $test_book2->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $test_store->addBrand($test_book2);
+            $result = $test_store->getBrands();
+
+            //Assert
+            $this->assertEquals([$test_brand, $test_book2], $result);
+        }
+        function testDeleteJoin()
+        {
+            //Arrange
+            $name = "Steppin";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $brand = "Flyers";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $test_store->delete();
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([], $result);
         }
 
 

@@ -52,25 +52,24 @@
 
         function addBrand($brand)
         {
-            $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ({$this->getId()}, {$brand->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ({$brand->getId()}, {$this->getId()});");
         }
 
-        function getStores()
+        function getBrands()
         {
             $query = $GLOBALS['DB']->query("SELECT brands.* FROM
                 stores JOIN brands_stores ON (stores.id = brands_stores.store_id)
                 JOIN brands ON (brands_stores.brand_id = brands.id)
                 WHERE stores.id = {$this->getId()};");
-            $stores = $query->fetchAll(PDO::FETCH_ASSOC);
-
-            $found_stores = array();
-            foreach($stores as $place){
-                $name = $place['name'];
-                $id = $place['id'];
-                $new_store = new Store($name, $id);
-                array_push($found_stores, $new_store);
+            $brands = $query->fetchAll(PDO::FETCH_ASSOC);
+            $found_brands = array();
+            foreach($brands as $shoe){
+                $name = $shoe['name'];
+                $id = $shoe['id'];
+                $new_brand = new Brand($name, $id);
+                array_push($found_brands, $new_brand);
             }
-            return $found_stores;
+            return $found_brands;
         }
 
         static function getAll()
