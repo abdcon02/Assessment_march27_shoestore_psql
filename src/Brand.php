@@ -18,7 +18,7 @@
 
         function getId()
         {
-            return $this->Id;
+            return $this->id;
         }
 
         function setName($new_name)
@@ -33,20 +33,21 @@
 
         function save()
         {
-            $statement = $GLOBALS['DB']->query("INSERT INTO brands (name) VALUES ('{$this->getName}') RETURNING id;");
+            $statement = $GLOBALS['DB']->query("INSERT INTO brands (name) VALUES ('{$this->getName()}') RETURNING id;");
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             $this->setId($result['id']);
         }
 
         function update($new_name)
         {
-            $GLOBALS->exec("UPDATE brands name = '{$new_name}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE brands SET name = '{$new_name}' WHERE id = {$this->getId()};");
             $this->setName($new_name);
         }
 
-        function deleteBrand()
+        function delete()
         {
-            $GLOBALS->exec("DELETE FROM brands WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM brands WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM brands_stores WHERE brand_id = {$this->getId()};");
         }
 
         function addStore($store)
