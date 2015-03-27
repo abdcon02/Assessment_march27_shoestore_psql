@@ -2,23 +2,29 @@
 <html>
     <head>
         <title>Edit Brand</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
     </head>
     <body>
-        <h1>Edit the store: {{ brand.getName }}</h1>
+        <div class="container">
+            <h1>Edit the Brand: {{ brand.getName }}</h1>
+            <div class = "nav">
+                <a href="/brands" class ="link">Go Back to the Brands</a>
+            </div>
 
-        <form action="/edit_brand" method="post">
-            <label for="name">Enter the Brands new name:</label>
-            <input type="text" name="name">
-            <input name="_method" type="hidden" value="patch">
-            <input name="id" type="hidden" value="{{ brand.getId }}">
-            <button type="submit">Update Brand Name</button>
-        </form>
+            <form action="/edit_brand" method="post">
+                <label for="name">Enter the Brands new name:</label>
+                <input type="text" name="name">
+                <input name="_method" type="hidden" value="patch">
+                <input name="id" type="hidden" value="{{ brand.getId }}">
+                <button type="submit" class="buttonlink">Update Brand Name</button>
+            </form>
 
-        <form action="/delete_brand" method="post">
-            <input name="_method" type="hidden" value="delete">
-            <input name="id" type="hidden" value="{{ brand.getId }}">
-            <button type="submit">Delete this Brand and all of its Brands</button>
-        </form>
-        <a href="/brands">Go Back to the Brands</a>
+            <form action="/delete_brand" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <input name="id" type="hidden" value="{{ brand.getId }}">
+                <button type="submit" class="buttonlink">Delete this Brand and all of its Stores</button>
+            </form>
+
+        </div>
     </body>
 </html>

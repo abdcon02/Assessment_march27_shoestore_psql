@@ -2,58 +2,65 @@
 <html>
     <head>
         <title>All Brands</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
     </head>
     <body>
-        <h1>Local Brands</h1>
-        {% if brands is not empty %}
-            <h3>Brands at stores around you are:</h3>
-            <ul>
-                {% for shoe in brands %}
-                    <li>
-                        {{ shoe.getName }}<a href="/edit_brand/{{ shoe.getId }}"><button type="submit">Edit Brand</button></a>
-                            {% if shoe.getStores is not empty %}
-                                <p>This brand can be found in the following stores:</p>
-                                <ul>
-                                    {% for store in shoe.getStores %}
-                                        <li>{{ store.getName }}</li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                                <form action="/brand_add_store" method="post">
-                                    <input type="hidden" name="brand_id" value=" {{ shoe.getId }}">
-                                    <label for="store_name">Add a Store</label>
-                                    <select name="store_id" type="text">
-                                        {% for place in stores %}
-                                            <option value="{{ place.getId }}">{{ place.getName }}</option>
+        <div class="container">
+            <h1>Local Brands</h1>
+            <div class = "nav">
+                <a href="/" class ="link">Go Home</a>
+                <a href="/stores" class ="link">Go to Stores</a>
+            </div>
+            {% if brands is not empty %}
+                <h3>Brands at stores around you are:</h3>
+                <ul>
+                    {% for shoe in brands %}
+                        <li>
+                            <p>{{ shoe.getName }}</p><a href="/edit_brand/{{ shoe.getId }}"><button type="submit">Edit Brand</button></a>
+                                {% if shoe.getStores is not empty %}
+                                    <p>This brand can be found in the following stores:</p>
+                                    <ul>
+                                        {% for store in shoe.getStores %}
+                                            <li>{{ store.getName }}</li>
                                         {% endfor %}
-                                    </select>
-                                    <button type='submit'>Add Brand to Store Catalog</button>
-                                </form>
-                                <form action="/brand_drop_store" method="post">
-                                    <input type="hidden" name="brand_id" value=" {{ shoe.getId }}">
-                                    <label for="store_name">Drop a Store</label>
-                                    <select name="store_id" type="text">
-                                        {% for place in shoe.getStores %}
-                                            <option value="{{ place.getId }}" required>{{ place.getName }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <button type='submit'>Drop Brand from Store Catalog</button>
-                                </form>
-                    </li>
-                {% endfor %}
-            </ul>
-            <form  action="/delete_all_brands" method="post">
-                <button type="submit">Delete All Brands</button>
-            </form>
-        {% else %}
-            <h3>There are no brands being sold at stores new by!</h3>
-        {% endif %}
+                                    </ul>
+                                    {% endif %}
+                                    <form action="/brand_add_store" method="post">
+                                        <input type="hidden" name="brand_id" value=" {{ shoe.getId }}">
+                                        <label for="store_name">Add a Store</label>
+                                        <select name="store_id" type="text">
+                                            {% for place in stores %}
+                                                <option value="{{ place.getId }}">{{ place.getName }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type='submit' class="buttonlink">Add Brand to Store Catalog</button>
+                                    </form>
+                                    <form action="/brand_drop_store" method="post">
+                                        <input type="hidden" name="brand_id" value=" {{ shoe.getId }}">
+                                        <label for="store_name">Drop a Store</label>
+                                        <select name="store_id" type="text">
+                                            {% for place in shoe.getStores %}
+                                                <option value="{{ place.getId }}" required>{{ place.getName }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type='submit' class="buttonlink">Drop Brand from Store Catalog</button>
+                                    </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <form  action="/delete_all_brands" method="post">
+                    <button type="submit">Delete All Brands</button>
+                </form class="buttonlink">
+            {% else %}
+                <h3>There are no brands being sold at stores new by!</h3>
+            {% endif %}
 
-        <form action="/add_brand" method="post">
-            <label for="name">Brand Name</label>
-            <input type="text" name="name">
-            <button type="submit">Create A Brand</button>
-        </form>
-        <a href="/">Go Home</a>
+            <form action="/add_brand" method="post">
+                <label for="name">Brand Name</label>
+                <input type="text" name="name">
+                <button type="submit" class="buttonlink">Create A Brand</button>
+            </form>
+
+        </div>
     </body>
 </html>

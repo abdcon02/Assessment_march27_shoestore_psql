@@ -2,28 +2,34 @@
 <html>
     <head>
         <title>All Stores</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
     </head>
     <body>
-        <h1>Local Stores</h1>
-        {% if stores is not empty %}
-            <h3>Your stores are:</h3>
-            <ul>
-                {% for place in stores %}
-                    <li><a href='store/{{ place.getId}}'>{{ place.getName }}</a></li>
-                {% endfor %}
-            </ul>
-            <form  action="/delete_all_stores" method="post">
-                <button type="submit">Delete All Stores</button>
-            </form>
-        {% else %}
-            <h3>There are no stores in your area!</h3>
-        {% endif %}
+        <div class="container">
+            <h1>Local Stores</h1>
+            <div class = "nav">
+                <a href="/" class ="link">Go Home</a>
+            </div>
+            {% if stores is not empty %}
+                <h3>Your stores are:</h3>
+                <ul>
+                    {% for place in stores %}
+                        <li><a href='store/{{ place.getId}}'>{{ place.getName }}</a></li>
+                    {% endfor %}
+                </ul>
+                <form  action="/delete_all_stores" method="post">
+                    <button type="submit" class="buttonlink">Delete All Stores</button>
+                </form>
+            {% else %}
+                <h3>There are no stores in your area!</h3>
+            {% endif %}
 
-        <form action="/add_store" method="post">
-            <label for="name">Store Name</label>
-            <input type="text" name="name">
-            <button type="submit">Create A Store</button>
-        </form>
-        <a href="/">Go Home</a>
+            <form action="/add_store" method="post">
+                <label for="name">Store Name</label>
+                <input type="text" name="name">
+                <button type="submit" class="buttonlink">Create A Store</button>
+            </form>
+
+        </div>
     </body>
 </html>

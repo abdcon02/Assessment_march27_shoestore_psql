@@ -2,23 +2,29 @@
 <html>
     <head>
         <title>Edit Store</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
     </head>
     <body>
-        <h1>Edit the store: {{ store.getName }}</h1>
+        <div class="container">
+            <h1>Edit the store: {{ store.getName }}</h1>
+            <div class = "nav">
+                <a href="/store/{{ store.getId }}" class ="link">Go Back to the store</a>
+            </div>
 
-        <form action="/edit_store" method="post">
-            <label for="name">Enter the Stores new name:</label>
-            <input type="text" name="name">
-            <input name="_method" type="hidden" value="patch">
-            <input name="id" type="hidden" value="{{ store.getId }}">
-            <button type="submit">Update Store Name</button>
-        </form>
+            <form action="/edit_store" method="post">
+                <label for="name">Enter the Stores new name:</label>
+                <input type="text" name="name">
+                <input name="_method" type="hidden" value="patch">
+                <input name="id" type="hidden" value="{{ store.getId }}">
+                <button type="submit" class="buttonlink">Update Store Name</button>
+            </form>
 
-        <form action="/delete_store" method="post">
-            <input name="_method" type="hidden" value="delete">
-            <input name="id" type="hidden" value="{{ store.getId }}">
-            <button type="submit">Delete this Store and all of its Brands</button>
-        </form>
-        <a href="/store/{{ store.getId }}">Go Back to the store</a>
+            <form action="/delete_store" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <input name="id" type="hidden" value="{{ store.getId }}">
+                <button type="submit" class="buttonlink">Delete this Store and all of its Brands</button>
+            </form>
+
+        </div>
     </body>
 </html>
