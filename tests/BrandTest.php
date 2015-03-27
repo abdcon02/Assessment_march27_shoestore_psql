@@ -4,6 +4,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Brand.php";
+    require_once "src/Store.php";
 
     $DB = new PDO('pgsql:host=localhost;dbname=shoes_test');
 
@@ -12,6 +13,7 @@
         protected function tearDown()
         {
             Brand::deleteAll();
+            Store::deleteAll();
         }
 
         function test_SetName()
@@ -40,6 +42,7 @@
             //Assert
             $this->assertEquals($new_id, $result);
         }
+
         function test_save()
         {
             //Arrange
@@ -51,6 +54,7 @@
             //Assert
             $this->assertEquals($test_shoe, $result[0]);
         }
+
         function test_getAll()
         {
             //Arrange
@@ -65,6 +69,7 @@
             //Assert
             $this->assertEquals([$test_shoe, $test_shoe2], $result);
         }
+
         function test_deleteAll()
         {
             //Arrange
@@ -77,6 +82,7 @@
             //Assert
             $this->assertEquals([], $result);
         }
+
         function test_find()
         {
             //Arrange
@@ -103,6 +109,7 @@
             //Assert
             $this->assertEquals($new_name, $test_shoe->getName());
         }
+
         function test_delete()
         {
             //Arrange
@@ -117,6 +124,69 @@
             $result = Brand::getAll();
             //Assert
             $this->assertEquals([$test_shoe], $result);
+        }
+
+        function testAddStore()
+        {
+            //Arrange
+            $name = "Hairy shoes";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $brand = "Barefoot";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store], $result);
+        }
+
+        function testGetStores()
+        {
+            //Arrange
+            $name = "Shoe go lucky";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $name2 = "Nanies";
+            $test_store2 = new Store($name2);
+            $test_store2->save();
+
+            $brand = "Five Fingers";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $test_brand->addStore($test_store2);
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
+        function testDeleteJoin()
+        {
+            //Arrange
+            $name = "Silky running";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $brand = "bounces";
+            $test_brand = new Brand($brand);
+            $test_brand->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $test_brand->delete();
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([], $result);
         }
 
 

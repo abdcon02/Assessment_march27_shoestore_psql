@@ -42,6 +42,7 @@
             //Assert
             $this->assertEquals($new_id, $result);
         }
+
         function test_save()
         {
             //Arrange
@@ -53,6 +54,7 @@
             //Assert
             $this->assertEquals($test_store, $result[0]);
         }
+
         function test_getAll()
         {
             //Arrange
@@ -67,6 +69,7 @@
             //Assert
             $this->assertEquals([$test_store, $test_store2], $result);
         }
+
         function test_deleteAll()
         {
             //Arrange
@@ -79,6 +82,7 @@
             //Assert
             $this->assertEquals([], $result);
         }
+
         function test_find()
         {
             //Arrange
@@ -93,6 +97,7 @@
             //Assert
             $this->assertEquals($test_store2, $result);
         }
+
         function test_update()
         {
             //Arrange
@@ -105,6 +110,7 @@
             //Assert
             $this->assertEquals($new_name, $test_store->getName());
         }
+
         function test_delete()
         {
             //Arrange
@@ -140,7 +146,7 @@
             $this->assertEquals([$test_brand], $result);
         }
 
-        function testGetBooks()
+        function testGetBrands()
         {
             //Arrange
             $name = "Burnhearts place";
@@ -151,18 +157,19 @@
             $test_brand = new Brand($brand);
             $test_brand->save();
 
-            $book_name2 = "Barefoot";
-            $test_book2 = new Brand($book_name2);
-            $test_book2->save();
+            $brand2 = "Barefoot";
+            $test_brand2 = new Brand($brand2);
+            $test_brand2->save();
 
             //Act
             $test_store->addBrand($test_brand);
-            $test_store->addBrand($test_book2);
+            $test_store->addBrand($test_brand2);
             $result = $test_store->getBrands();
 
             //Assert
-            $this->assertEquals([$test_brand, $test_book2], $result);
+            $this->assertEquals([$test_brand, $test_brand2], $result);
         }
+
         function testDeleteJoin()
         {
             //Arrange
