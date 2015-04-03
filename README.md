@@ -21,6 +21,7 @@ CREATE TABLE stores (id serial PRIMARY KEY, name varchar); <br />
 CREATE TABLE brands (id serial PRIMARY KEY, name varchar); <br />
 CREATE TABLE brands_stores (id serial PRIMARY KEY, brand_id int, store_id int); <br />
 CREATE DATABASE shoes_test WITH TEMPLATE shoes; <br />
+There is also the option to run the command \i shoes.sql once connected to the shoes database and run the command \i shoes_test.sql once connected to the shoes_test database.
 
 
 To edit the app, download the source code and open it in your text editor. <br />
